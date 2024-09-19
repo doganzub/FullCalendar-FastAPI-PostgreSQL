@@ -1,0 +1,95 @@
+{% include 'layout.html '%}
+
+<div class="container">
+    <h2>add new todo</h2>
+    <div class="card-body">
+        <form method="POST">
+
+            <div class="form-row">
+
+                <div class="form-group col-md-4">
+                    <div class="form-group col-md-2">
+                        <label for="uzman_id">uzman:</label>
+                        <select class="btn btn-outline-primary" name="uzman_id" id="uzman_id">
+                            {% for d in uzm|selectattr("is_delete", "false")|sort(attribute="ad") %}
+                            <option value={{d.id}}>{{d.ad}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="sekreter_id">sekreter: </label>
+                        <select class="btn btn-outline-primary" name="sekreter_id" id="sekreter_id">
+                            {% for s in sek|selectattr("is_delete", "false")|sort(attribute="ad") %}
+                            <option value={{s.id}}>{{s.ad}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="start" class="form-label">Start Date</label>
+                        <input type="datetime-local" class="form-control" id="start" name="start_time"
+                               value="{{start_time}}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="end" class="form-label">End Date</label>
+                        <input type="datetime-local" class="form-control" id="end" name="end_time" value="{{end_time}}"
+                               required>
+                    </div>
+
+
+                    <div class="custom-control custom-switch">
+                        <input class="custom-control-input" type="checkbox" id="complete" name="complete" value="True">
+                        <label class="custom-control-label" for="complete">complete</label>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group col-md-8">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="5" name="description" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <table id="add_todo" class="display nowrap" width="100%">
+                    <thead>
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col">customers_id</th>
+                        <th scope="col">ad</th>
+                        <th scope="col">soyad</th>
+                        <th scope="col">email</th>
+                        <th scope="col">telno</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="tableDetails">
+                    {% for m in mus|selectattr("is_delete", "false")|sort(attribute="ad") %}
+                    <tr class="clickableRow">
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio"
+                                       value={{m.id}} name="musteri_id"
+                                       id="musteri_id">
+                                <label class="form-check-label" for="musteri_id"></label>
+                            </div>
+                        </td>
+                        <td>{{ m.id }}</td>
+                        <td>{{ m.ad }}</td>
+                        <td>{{ m.soyad }}</td>
+                        <td>{{ m.email }}</td>
+                        <td>{{ m.telno }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add new todo</button>
+        </form>
+    </div>
+</div>

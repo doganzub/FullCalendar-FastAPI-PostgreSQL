@@ -1,0 +1,78 @@
+{% include 'layout.html '%}
+
+
+<div class="container">
+
+    {% if users|selectattr("role","admin") %}
+
+    <hr>
+        <div id="admin">
+            <input type="checkbox" name="role" value="admin">admin?
+        </div>
+
+        <div id="user">
+            <input type="checkbox" name="role" value="user">user?
+        </div>
+    <hr>
+
+      <table id="users_list" class="display nowrap" width="100%">
+        <thead>
+            <tr>
+                <th scope="col">users_id</th>
+                <th scope="col">ad</th>
+                <th scope="col">soyad</th>
+                <th scope="col">email</th>
+                <th scope="col">telno</th>
+                <th scope="col">user_role</th>
+                <th scope="col">owner</th>
+                <th scope="col">uzman</th>
+                <th scope="col">sekreter</th>
+                <th scope="col">is_active</th>
+                <th scope="col">is_delete</th>
+
+
+
+
+                <th scope="col">edit_user</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableDetails">
+            {% for usr in users|selectattr("is_delete","false")  %}
+
+            <tr class="clickableRow">
+                <td>{{ usr.id }}</td>
+                <td>{{ usr.ad }}</td>
+                <td>{{ usr.soyad }}</td>
+                <td>{{ usr.email }}</td>
+                <td>{{ usr.telno }}</td>
+                <td>{{ usr.role }}</td>
+                <td>{{ usr.owner }}</td>
+                <td>{{ usr.uzman }}</td>
+                <td>{{ usr.sekreter }}</td>
+                <td>
+                    {% if usr.is_active == True %} {{ 'active' }} {% else %} {{ 'passive' }} {% endif %}
+                </td>
+                <td>{{ usr.is_delete }}</td>
+
+
+                <td>
+                    <button onclick="window.location.href='users_edit/{{usr.id}}'"
+                            type="button" class="btn btn-success">Edit</button>
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <a href="/auth/register" class="btn btn-primary">Add new customers</a>
+
+
+    {% else %}
+        {{msg}}
+
+    {% endif %}
+
+
+ </div>

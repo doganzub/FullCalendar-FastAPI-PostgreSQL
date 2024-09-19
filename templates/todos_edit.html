@@ -1,0 +1,242 @@
+{% include 'layout.html '%}
+
+<div class="container">
+    <h2>edit todo</h2>
+    <div class="card-body">
+        <form method="POST">
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+
+                    <div class="form-group col-md-3">
+                        <select class="btn btn-outline-primary" aria-label="Large select example" name="uzman_id"
+                                id="uzman_id">
+                            {% for d in uzm|selectattr("is_delete", "false") %}
+                            {% if todo.uzman_id == d.id %}
+                            <option value="{{ d.id }}" selected>{{ d.ad }}</option>
+                            {% else %}
+                            <option value="{{ d.id }}">{{ d.ad }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-md-3">
+                        <select class="btn btn-outline-primary" aria-label="Large select example" name="sekreter_id"
+                                id="sekreter_id">
+                            {% for s in sek|selectattr("is_delete", "false") %}
+                            {% if todo.sekreter_id == s.id %}
+                            <option value="{{ s.id }}" selected>{{ s.ad }}</option>
+                            {% else %}
+                            <option value="{{ s.id }}">{{ s.ad }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="start" class="form-label">Start Date</label>
+                        <input type="datetime-local" class="form-control" id="start" name="start_time"
+                               value="{{todo.start_time}}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="end" class="form-label">End Date</label>
+                        <input type="datetime-local" class="form-control" id="end" name="end_time"
+                               value="{{todo.end_time}}"
+                               required>
+                    </div>
+
+
+                    <div class="custom-control custom-switch">
+                        <input class="custom-control-input" type="checkbox" id="complete" name="complete" value="True">
+                        <label class="custom-control-label" for="complete">complete</label>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-8">
+                    <label>description</label>
+                    <textarea class="form-control" rows="7" name="description" required>{{todo.description}}</textarea>
+                </div>
+
+
+                <div class="form-group col-md-3">
+                    <select class="btn btn-outline-primary" aria-label="Large select example" name="status_id"
+                            id="status_id">
+                        {% for st in sts|selectattr("is_delete", "false")|sort(attribute="id") %}
+                        {% if todo.status_id == st.id %}
+                        <option value="{{ st.id }}" selected>{{ st.status_name }}</option>
+                        {% else %}
+                        <option value="{{ st.id }}">{{ st.status_name }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col">musteri_id</th>
+                        <th scope="col">ad</th>
+                        <th scope="col">soyad</th>
+                        <th scope="col">email</th>
+                        <th scope="col">telno</th>
+                        <th scope="col">total</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="tableDetails">
+                    {% for m in mus|selectattr("is_delete", "false")|sort(attribute="ad") %}
+                    {% if todo.musteri_id == m.id %}
+
+                    {% for c in chg|selectattr("is_delete", "false")|sort(attribute="id") %}
+                    {% if todo.charge_id == c.id %}
+
+                    <tr class="clickableRow">
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value={{m.id}}
+                                       name="musteri_id"
+                                       id="musteri_id" checked>
+                                <label class="form-check-label" for="musteri_id"></label>
+                            </div>
+                        </td>
+                        <td>{{ m.id }}</td>
+                        <td>{{ m.ad }}</td>
+                        <td>{{ m.soyad }}</td>
+                        <td>{{ m.email }}</td>
+                        <td>{{ m.telno }}</td>
+                        <td>{{ todo.charge_id }}</td>
+
+                        <td>
+                            <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                                    data-target="#chargeModal">{{c.total}}
+                            </button>
+                            <!-- Charge Modal -->
+                            <div class="modal fade" id="chargeModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="chargeModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="chargeModalLabel">
+                                                Select Charge
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <table class="display nowrap" width="100%">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">Select</th>
+                                                        <th scope="col">name</th>
+                                                        <th scope="col">total</th>
+                                                        <th scope="col">tax</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody id="chargetableDetails">
+                                                        {% for c in chg|selectattr("is_delete","false")|sort(attribute="id") %}
+                                                            <tr class="clickableRow">
+                                                                {% if todo.charge_id == c.id %}
+                                                                    <td>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="radio" value="{{ c.id }}" name="charge_id" id="charge_id1" checked>
+                                                                            <label class="form-check-label" for="charge_id"></label>
+                                                                        </div>
+                                                                    </td>
+                                                                {% else %}
+                                                                    <td>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="radio" value="{{ c.id }}" name="charge_id" id="charge_id">
+                                                                            <label class="form-check-label" for="charge_id"></label>
+                                                                        </div>
+                                                                    </td>
+                                                                {% endif %}
+                                                                <td>{{ c.charge_name }}</td>
+                                                                <td>{{ c.total }}</td>
+                                                                <td>{{ c.tax }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button
+                                                    type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+
+                                            <button
+                                                    type="submit" class="btn btn-primary">Select
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Edit your todo</button>
+
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                {{ "delete todo date: " }} {{ todo.create_date }}
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% for m in mus if todo.musteri_id == m.id %}
+                            {{ m.ad }} {{ m.soyad }} {{"todo will be deleted, do you confirm?"}}
+                            {% endfor %}
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            <button onclick="window.location.href='/todos/delete/{{todo.id}}'" type="button"
+                                    class="btn btn-danger">Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

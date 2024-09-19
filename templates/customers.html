@@ -1,0 +1,54 @@
+{% include 'layout.html '%}
+
+<div class="container">
+
+    {% if request.query_params.msg %}
+    {% if request.query_params.msg == "Deleted {customer.ad} {customer.soyad} " %}
+    <div class="alert alert-success" role="alert">
+        {{ request.query_params.msg }}
+    </div>
+    {% else %}
+    <div class="alert alert-danger" role="alert">
+        {{ request.query_params.msg }}
+    </div>
+    {% endif %}
+    {% endif %}
+
+
+    <div id="True">
+        <input type="checkbox" name="is_delete" value="True">is_delete?
+    </div>
+
+
+    <table id="customers_list" class="display nowrap" width="100%">
+        <thead>
+        <tr>
+            <th scope="col">customers_id</th>
+            <th scope="col">ad</th>
+            <th scope="col">soyad</th>
+            <th scope="col">email</th>
+            <th scope="col">telno</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+
+        <tbody id="tableDetails">
+
+        {% for cus in customers|selectattr("is_delete","false") %}
+        <tr class="clickableRow">
+            <td>{{ cus.id }}</td>
+            <td>{{ cus.ad }}</td>
+            <td>{{ cus.soyad }}</td>
+            <td>{{ cus.email }}</td>
+            <td>{{ cus.telno }}</td>
+            <td>
+                <button onclick="window.location.href='customers_edit/{{cus.id}}'"
+                        type="button" class="btn btn-success">Edit
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="customers_add" class="btn btn-primary">Add new customers</a>
+</div>

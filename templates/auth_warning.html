@@ -1,0 +1,22 @@
+{% include 'layout.html '%}
+
+
+<div class="container">
+
+
+        {% if msg %}
+        {% if msg == 'admin permission' and 'User successfully created' %}
+        <div class="alert alert-success" role="alert">{{msg}}</div>
+
+        {% elif msg == "Contact your administrator for user activation" %}
+        <div class="alert alert-info" role="alert">{{msg}}</div>
+
+        {% else %}
+        <div class="alert alert-danger" role="alert">
+            {{msg}}
+        </div>
+
+        {% endif %}
+        {% endif %}
+
+ </div>

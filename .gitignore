@@ -1,0 +1,142 @@
+# Ignore PyCharm and IDE-related files
+.idea/
+
+# Ignore Alembic migration files
+alembic/
+
+# Ignore ConsBase directory (specific to your project)
+ConsBase/
+
+# Ignore Python virtual environments
+venv/
+
+# Ignore uploaded media files (usually for web projects)
+media/
+
+# Ignore static files (usually for web projects, these files are generated)
+static/
+
+# Ignore Python bytecode and cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Ignore Python interpreter
+.Python
+
+# Ignore build artifacts and directories
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+
+# Ignore egg-info and installed files
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Ignore PyInstaller and spec files
+*.spec
+
+# Ignore pip logs and temporary directories
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignore coverage and test result files
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Ignore hypothesis test cache files
+.hypothesis/
+
+# Ignore pytest cache
+.pytest_cache/
+cover/
+
+# Ignore translation files
+*.mo
+*.pot
+
+# Ignore log files
+*.log
+
+# Ignore local settings file
+local_settings.py
+
+# Ignore SQLite database files
+db.sqlite3
+db.sqlite3-journal
+
+# Ignore PyBuilder directories
+.pybuilder/
+target/
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints
+
+# Ignore IPython profiles
+profile_default/
+ipython_config.py
+
+# Ignore Poetry configuration files
+.pdm.toml
+__pypackages__/
+
+# Ignore Celery related files
+celerybeat-schedule
+celerybeat.pid
+
+# Ignore Sage math files
+*.sage.py
+
+# Ignore environment files for different configurations
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Ignore Spyder IDE project files
+.spyderproject
+.spyproject
+
+# Ignore Rope project files
+.ropeproject
+
+# Ignore local site packages and testing directories
+/site
+
+# Ignore MyPy type checker cache
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ignore Pyre and Pytype type checker directories
+.pyre/
+.pytype/
+
+# Ignore Cython debugging files
+cython_debug/
+
+# Ignore Poetry configuration file
+poetry.toml

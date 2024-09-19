@@ -1,0 +1,95 @@
+{% include 'layout.html '%}
+
+<div class="container mt-3">
+    <h2>todo list table</h2>
+
+
+    <table id="todo_list" class="display nowrap" width="100%">
+        <thead>
+        <tr>
+            <th scope="col">todo_id</th>
+            <th scope="col">musteri</th>
+            <th scope="col">uzman</th>
+            <th scope="col">start_time</th>
+            <th scope="col">end_time</th>
+            <th scope="col">status</th>
+            <th scope="col">charge</th>
+            <th scope="col">description</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody id="tableDetails">
+        {% for todo in todos|selectattr("is_delete","false")|sort(attribute="start_time") %}
+        <tr class="pointer">
+            <td>
+                {{todo.id}}
+            </td>
+            <td>
+                {% for m in mus %}
+                {% if todo.musteri_id == m.id %}
+                {{ m.ad }}
+                {%endif %}
+                {% endfor %}
+            </td>
+
+            <td>
+                {% for d in uzm %}
+                {% if todo.uzman_id == d.id %}
+                {{ d.ad }}
+                {%endif %}
+                {% endfor %}
+            </td>
+
+            <td>
+                {{todo.start_time}}
+            </td>
+
+            <td>
+                {{todo.end_time}}
+            </td>
+            <td>
+                {% for st in sts %}
+                {% if todo.status_id == st.id %}
+                {{ st.status_name }}
+                {%endif %}
+                {% endfor %}
+            </td>
+
+            <td>
+                {% for c in chg %}
+                {% if todo.charge_id == c.id %}
+                {{ c.total}}
+                {% endif %}
+                {% endfor %}
+            </td>
+
+            <td style="max-width:100px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis">
+                {{todo.description}}
+            <td>
+
+                <button onclick="window.location.href='todos_edit/{{todo.id}}'"
+                        type="button" class="btn btn-success">Edit
+                </button>
+            </td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+    <a href="todos_add" class="btn btn-primary">Add new todo</a>
+</div>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+{% include 'layout.html '%}
+
+
+<div class="container mt-3">
+    <input class="form-control"
+           id="txtInputAnything"
+           type="text"
+           placeholder="charge_edit Search Here">
+    <div id="myWeb" class="mt-3">
+
+
+        <div class="card">
+            <div class="card-header">
+                Let's edit your charge!
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="form-group">
+                        <label>name</label>
+                        <input type="text" class="form-control" name="name" value="{{charge.charge_name}}"
+                               required>
+                    </div>
+
+                    <br><hr>
+
+                    <div class="form-group">
+                        <label>net</label>
+                        <input type="text" class="form-control" name="net" value="{{charge.net}}"
+                               required>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tax" id="tax1" value=0>
+                        <label class="form-check-label" for="tax1">tax %0</label>
+                    </div>
+
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tax" id="tax2" value=20 checked>
+                        <label class="form-check-label" for="tax2">tax %20</label>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="tax_result" value="{{charge.total}}"
+                               aria-label="Total" disabled readonly>
+                    </div>
+
+                    <br><hr>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label><strong> is_active ? </strong></label>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                                    name="is_active" id="is_active">
+                                <option selected> {{ charge.is_active }}
+                                <option value="True">make active</option>
+                                <option value="False">make passive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Edit your charge</button>
+
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#chargeModal">Delete
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="chargeModal" tabindex="-1" role="dialog"
+                         aria-labelledby="chargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="chargeModalLabel">
+                                        {{ "delete charge name: " }} {{charge.charge_name}}
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ charge.charge_name }} {{"charge will be deleted, do you confirm?"}}
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                    <button onclick="window.location.href='/charges/delete/{{charge.id}}'"
+                                            type="button" class="btn btn-danger">Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

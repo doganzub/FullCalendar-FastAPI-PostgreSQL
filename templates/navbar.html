@@ -1,0 +1,83 @@
+<div>
+    <nav class="navbar navbar-expand-md navbar-dark main-color fixed-top">
+        <a class="navbar-brand" href="/">M.U.D</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {% if user %}
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav" >
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/"> Home </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-lg-5">
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Planning</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/calendar">calendar</a>
+                    </div>
+                </div>
+
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action</button>
+
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/customers">customers</a>
+                        <a class="dropdown-item" href="/documents">documents</a>
+                        <a class="dropdown-item" href="/todos">todos</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">??</a>
+                    </div>
+                </div>
+
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">User</button>
+
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/auth/register">Create Users</a>
+                        <a class="dropdown-item" href="/auth/users">User List</a>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Charge</button>
+
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/charges">charges</a>
+                        <a class="dropdown-item" href="/charges/charges_add">charges_add</a>
+                </div>
+
+            </ul>
+
+            <ul class="navbar-nav ml-lg-auto">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    login
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/auth">User login</a>
+                        <a class="dropdown-item" href="/auth/new_password">New Pass</a>
+                        <a class="dropdown-item" href="/auth/user_register">New User</a>
+
+                    <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/auth/logout">Logout</a>
+                    </div>
+                </div>
+            </ul>
+
+        </div>
+        {% endif %}
+    </nav>
+</div>
+
+

@@ -1,0 +1,46 @@
+{% include 'layout.html '%}
+
+<div class="container">
+
+        <div id="True">
+            <input type="checkbox" name="is_delete" value="True">is_delete?
+        </div>
+
+
+      <table id="charges_list" class="display nowrap" width="100%">
+        <thead>
+            <tr>
+                <th scope="col">charges_id</th>
+                <th scope="col">net</th>
+                <th scope="col">tax</th>
+                <th scope="col">total</th>
+                <th scope="col">name</th>
+                <th scope="col">is_active</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableDetails">
+
+            {% for chg in charge|selectattr("is_delete","false") %}
+
+            <tr class="clickableRow">
+                <td>{{ chg.id }}</td>
+                <td>{{ chg.net }}</td>
+                <td>{{ chg.tax }}</td>
+                <td>{{ chg.total }}</td>
+                <td>{{ chg.charge_name }}</td>
+                <td>{{ chg.is_active }}</td>
+
+
+                <td>
+                    <button onclick="window.location.href='charges_edit/{{chg.id}}'"
+                            type="button" class="btn btn-success">Edit</button>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <a href="charges_add" class="btn btn-primary">Add new charges</a>
+ </div>

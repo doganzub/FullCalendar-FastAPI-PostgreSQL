@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.U.D</title>
+
+    <!-- Required meta tags -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/todo/css/base.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/todo/css/bootstrap.css') }}">
+
+
+
+
+    <!-- datatables css  -->
+    <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.css" rel="stylesheet">
+
+
+</head>
+<body>
+{% include 'navbar.html' %}
+{% block content %}
+{% endblock %}
+
+
+<script src="{{ url_for('static', path='/todo/js/jquery-slim.js') }}"></script>
+<script src="{{ url_for('static', path='/todo/js/popper.js') }}"></script>
+<script src="{{ url_for('static', path='/todo/js/bootstrap.js') }}"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#todo_list, #customers_list, #users_list, #charges_list, #documents_list, #add_todo').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+
+</script>
+
+
+
+
+<!-- customer.html is_delete_control script -->
+<script>
+    $(document).ready(function () {
+        var table = $('#customer_list').DataTable();
+
+        $('input:checkbox').on('change', function () {
+            //build a regex filter string with an or(|) condition
+            var is_delete_control = $('input:checkbox[name="is_delete"]:checked').map(function () {
+                return '^' + this.value + '$';
+            }).get().join('|');
+
+            //filter in column 1, with an regex, no smart filtering, not case sensitive
+            table.column(5).search(is_delete_control, true, false, false,).draw(false);
+
+        });
+
+    });
+</script>
+
+
+<!-- document_customers_list script -->
+<script>
+    $(document).ready(function () {
+        var table = $('#document_customers_list').DataTable();
+
+        $('input:checkbox').on('change', function () {
+            //build a regex filter string with an or(|) condition
+            var roles = $('input:checkbox[name="role"]:checked').map(function () {
+                return '^' + this.value + '$';
+            }).get().join('|');
+
+            //filter in column 1, with an regex, no smart filtering, not case sensitive
+            table.column(4).search(roles, true, false, false,).draw(false);
+
+        });
+
+    });
+</script>
+
+
+<!-- todos.html diyetisyens script -->
+<script>
+    $(document).ready(function () {
+        var table = $('#users_list').DataTable();
+
+        $('input:checkbox').on('change', function () {
+            //build a regex filter string with an or(|) condition
+            var roles = $('input:checkbox[name="role"]:checked').map(function () {
+                return '^' + this.value + '$';
+            }).get().join('|');
+
+            //filter in column 1, with an regex, no smart filtering, not case sensitive
+            table.column(5).search(roles, true, false, false,).draw(false);
+
+        });
+
+    });
+</script>
+
+
+<!-- todos.html diyetisyens script -->
+<script>
+    $(document).ready(function () {
+        var table = $('#complate_list').DataTable();
+
+        $('input:checkbox').on('change', function () {
+            //build a regex filter string with an or(|) condition
+            var diyetisyens = $('input:checkbox[name="diyetisyen"]:checked').map(function () {
+                return '^' + this.value + '$';
+            }).get().join('|');
+
+            //filter in column 1, with an regex, no smart filtering, not case sensitive
+            table.column(2).search(diyetisyens, true, false, false,).draw(false);
+
+        });
+
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('Browser Time Zone:', Intl.DateTimeFormat().resolvedOptions().timeZone);
+
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'addCustomerButton dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            customButtons: {
+                addCustomerButton: {
+                    text: 'Add New Customer',
+                    click: function () {
+                        $('#addCustomerModal').modal('show');
+                    }
+                }
+            },
+            locale: 'tr', // Set the locale to Turkish
+            timeZone: 'UTC',
+            eventTimeFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: false
+            },
+            eventDisplay: 'block', // Display events as blocks
+            eventBackgroundColor: '#3788d8', // Set background color for events
+            eventBorderColor: '#3788d8', // Set border color for events
+            eventTextColor: '#ffffff', // Set text color for events
+            slotMinTime: '08:00:00', // Sets the starting hour to 8:00 AM
+            slotMaxTime: '22:00:00', // Sets the ending hour to 10:00 PM
+            initialView: 'dayGridMonth',
+            editable: true,
+            selectable: true,
+            events: '/calendar/events/',
+            aspectRatio: 3, // Set the aspect ratio to maintain width-to-height ratio
+
+            windowResize: function (view) {
+                calendar.changeView(view.type);
+            },
+
+            eventMouseEnter: function (info) {
+                info.el.style.backgroundColor = '#425737';
+            },
+            eventMouseLeave: function (info) {
+                info.el.style.backgroundColor = '';
+            },
+
+            eventRender: function (info) {
+                var statusId = info.event.extendedProps.status_id;
+                if (statusId === 0) {
+                    info.el.style.backgroundColor = '#3788d8';
+                } else if (statusId === 1) {
+                    info.el.style.backgroundColor = '#52b21f';
+
+                } else if (statusId === 2) {
+                    info.el.style.backgroundColor = '#595654';
+
+                } else if (statusId === 3) {
+                    info.el.style.backgroundColor = '#de8b44';
+
+
+                } else if (statusId === 9) {
+                    info.el.style.backgroundColor = 'red';
+                }
+                // Add more conditions as needed for other status IDs
+            },
+
+
+            eventDidMount: function (info) {
+                var eventElement = info.el;
+
+                eventElement.addEventListener('contextmenu', function (e) {
+                    e.preventDefault(); // Prevent the default context menu
+
+                    if (confirm("Are you sure you want to delete this event?")) {
+                        fetch(`/calendar/events/${info.event.id}/`, {
+                            method: 'DELETE'
+                        }).then(function () {
+                            info.event.remove();
+                        });
+                    }
+                });
+            },
+
+
+            select: function (info) {
+                var modal = new bootstrap.Modal(document.getElementById('addEventModal'));
+                document.getElementById('title').value = info.titleStr;
+                document.getElementById('start').value = info.startStr;
+                document.getElementById('end').value = info.endStr;
+
+                modal.show();
+            },
+
+
+            // Event Click Handler: Show modal with event details when an event is clicked
+            eventClick: function (info) {
+                $('#eventId').val(info.event.id);
+                $('#update_description').val(info.event.extendedProps.description);
+                $('#update_start_time').val(info.event.start.toISOString().slice(0, 16)); // Format start time
+                $('#update_end_time').val(info.event.end.toISOString().slice(0, 16)); // Format end time
+                $('#update_uzman_id').val(info.event.extendedProps.uzman_id);
+                $('#update_musteri_id').val(info.event.extendedProps.musteri_id);
+                $('#update_status_id').val(info.event.extendedProps.status_id);
+
+                $('#updateEventModal').modal('show');
+            },
+
+        });
+
+
+        // Update Event Button Click Handler: Send AJAX request to update the event
+        $('#updateEventButton').on('click', function () {
+            var eventId = $('#eventId').val();
+            var description = $('#update_description').val();
+            var start_time = $('#update_start_time').val();
+            var end_time = $('#update_end_time').val();
+            var uzman_id = $('#update_uzman_id').val();
+            var musteri_id = $('#update_musteri_id').val();
+            var status_id = $('#update_status_id').val();
+            // Send AJAX request
+            $.ajax({
+                url: `/calendar/${eventId}`,
+                type: 'PUT',
+                data: {
+                    description: description,
+                    start_time: start_time,
+                    end_time: end_time,
+                    uzman_id: uzman_id,
+                    musteri_id: musteri_id,
+                    status_id: status_id
+                },
+                success: function (response) {
+                    console.log(response); // Log the response
+                    $('#updateEventModal').modal('hide'); // Hide the modal after successful update
+                    calendar.refetchEvents(); // Refetch events on the calendar
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText); // Log any errors
+                }
+            });
+        });
+
+        calendar.render();
+
+        document.getElementById('addEventForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch('/calendar/event_add/', {
+                method: 'POST',
+                body: formData
+            }).then(function (response) {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    return response.json();
+                }
+            }).then(function (data) {
+            }).catch(function (error) {
+                console.error('Error:', error);
+            });
+        });
+
+    });
+
+    $(document).ready(function () {
+        $('#addCustomerForm').submit(function (event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '/calendar/customers_add',
+                data: formData,
+                success: function (response) {
+                    $('#addCustomerModal').modal('hide');
+                    // Refresh the calendar or update events after adding a customer
+                },
+                error: function (error) {
+                    console.log('Error:', error);
+                    // Handle error if any
+                }
+            });
+        });
+    });
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#uploadForm').submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var formData = new FormData(this); // Create FormData object from the form
+
+            // Extract the customer_id from the path
+            var path = window.location.pathname; // Get the current URL's path
+            var customer_id = path.split("/").pop(); // Extract the last segment of the path
+
+            $.ajax({
+                url: `/customers/upload_file/${customer_id}`, // Adjust the URL as needed
+                type: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from automatically processing the data
+                contentType: false, // Prevent jQuery from automatically setting the content type
+                success: function (response) {
+                    // Handle the successful upload
+                    $('#msg').text('File uploaded successfully');
+                    $('#msg').show();
+                    setTimeout(function () {
+                        $('#msg').hide();
+                    }, 3000); // Hide the message after 3 seconds
+                },
+                error: function (xhr, status, error) {
+                    // Handle errors
+                    console.error('Error uploading file:', error);
+                    $('#msg').text('Error uploading file: ' + error);
+                    $('#msg').removeClass('alert-success').addClass('alert-danger').show();
+                }
+            });
+        });
+    });
+
+</script>
+
+
+</body>
+</html>

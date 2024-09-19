@@ -13,7 +13,6 @@ Whether you're building a scheduling app, a booking system, or simply need a cal
 
 🎯 Target Audience
 This project is ideal for:
-
 Beginner to intermediate FastAPI developers looking to learn FullCalendar integration.
 Developers who need a fast and customizable calendar solution in their FastAPI project.
 Learners who want a hands-on example of combining FastAPI with SQLAlchemy and Jinja2.
@@ -28,6 +27,25 @@ PostgreSQL: A robust relational database to manage your events, users, and other
 📚 Educational Notes
 Each section of the project is documented with educational notes, making it easy to understand how each component works and how they interact together.
 
+```bash
+.
+├── app
+│   ├── __init__.py
+│   ├── main.py                  # Main FastAPI application
+│   ├── models.py                # SQLAlchemy models for database tables
+│   ├── database.py              # Database connection and session management
+│   ├── routers
+│   │   ├── auth.py              # Authentication and login system
+│   │   ├── calendar.py          # FullCalendar API integration
+│   ├── templates                # Jinja2 HTML templates
+│   │   ├── index.html           # Home page
+│   │   ├── calendar.html        # FullCalendar page
+│   └── static
+│       ├── js                   # Custom JavaScript for FullCalendar
+│       ├── css                  # Custom styles
+├── README.md                    # Project documentation
+└── requirements.txt             # Python dependencies
+```
 📝 Usage
 Authentication: Register or log in to manage your calendar events.
 FullCalendar: Create, edit, and delete events directly from the calendar interface.
@@ -40,17 +58,18 @@ How to use SQLAlchemy for database management and ORM.
 How to create and handle routes in FastAPI.
 How to use Jinja2 for frontend rendering in a FastAPI project.
 How to work with PostgreSQL for data persistence.
+
 📖 Tutorial and Educational Guide
-For a detailed guide on how to build this project from scratch, check out the accompanying blog post or the YouTube tutorial. These resources will guide you step-by-step through the process, ensuring you understand every part of the integration.
+For a detailed guide on how to build this project from scratch, check out the accompanying blog post or YouTube tutorial. These resources will guide you step-by-step through the process, ensuring you understand every part of the integration.
 
 🛠️ Contributing
 We welcome contributions from developers of all levels! Feel free to:
-
 Fork the project.
 Create a new branch (git checkout -b feature/new-feature).
 Commit your changes (git commit -m 'Add new feature').
 Push to the branch (git push origin feature/new-feature).
 Open a pull request.
+
 🎉 Acknowledgements
 Special thanks to the FastAPI, FullCalendar, and SQLAlchemy teams for their fantastic open-source tools that made this project possible!
 
@@ -60,4 +79,5 @@ Feel free to share this project with others who may find it useful! 🚀
 
 📩 Contact
 Have any questions or suggestions? Feel free to reach out at:
+
 Email: doganzub@gmail.com
